@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo CSS 3D</title>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <div class="scene">
+        <div class="cube">
+            <div class="cube__face--front"></div>
+            <div class="cube__face--back"></div>
+            <div class="cube__face--right"></div>
+            <div class="cube__face--left"></div>
+            <div class="cube__face--top"></div>
+            <div class="cube__face--bottom"></div>
+        </div>
+    </div>
+
+    <script>
+        var cube = document.querySelector('.cube');
+        var currentClass = '';
+
+        function changeSide(side) {
+            var showClass = 'show-' + side;
+            if (currentClass) {
+                cube.classList.remove(currentClass);
+            }
+            cube.classList.add(showClass);
+            currentClass = showClass;
+        }
+        // set initial side
+        changeSide('front');
+
+        function getNextSide() {
+            if( currentClass == 'show-front' ) return 'right';
+            if( currentClass == 'show-right' ) return 'back';
+            if( currentClass == 'show-back' ) return 'left';
+            if( currentClass == 'show-left' ) return 'top';
+            if( currentClass == 'show-top' ) return 'bottom';
+            if( currentClass == 'show-bottom' ) return 'front';
+        }
+
+        function initChange(){
+
+            setTimeout(function () {
+                changeSide( getNextSide() );
+                initChange();
+            }, 1000);
+
+        }
+
+        initChange();
+    </script>
+
+</body>
+
+</html>
